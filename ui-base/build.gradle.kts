@@ -2,6 +2,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.kotlinAndroid)
+    id(libs.plugins.mavenPublish.get().pluginId)
 }
 
 android {
@@ -24,6 +25,14 @@ android {
             )
         }
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -31,13 +40,40 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.4.3"
+    }
+}
+
+publishing {
+    publications {
+        register<MavenPublication>("release") {
+            groupId = "com.splanes.apps.toolbox-compose"
+            artifactId = "toolbox-compose-ui-base"
+            version = "1.0.0"
+
+            afterEvaluate {
+                from(components["release"])
+            }
+        }
+    }
 }
 
 dependencies {
 
     implementation(libs.core.ktx)
     implementation(libs.appcompat)
-    implementation(libs.material)
+    implementation(libs.compose.material)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui)
+    implementation(libs.compose.uiPreview)
+    implementation(libs.compose.lottieAnimation)
+    implementation(libs.compose.material.iconsExtended)
+    implementation(libs.compose.accompanist.systemUiController)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

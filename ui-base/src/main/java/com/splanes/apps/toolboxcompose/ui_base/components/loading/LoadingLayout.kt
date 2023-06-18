@@ -1,0 +1,73 @@
+package com.splanes.apps.toolboxcompose.ui_base.components.loading
+
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.splanes.apps.toolboxcompose.ui_base.components.animation.LottieAnimation
+
+@Composable
+fun LoadingLayout(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    visuals: LoadingVisuals = LoadingVisuals.Spinner(),
+    content: @Composable BoxScope.() -> Unit,
+) {
+    Box(
+        modifier = modifier,
+        contentAlignment = Alignment.Center,
+    ) {
+        content()
+
+        AnimatedVisibility(
+            visible = visible,
+            enter = fadeIn(animationSpec = tween()),
+            exit = fadeOut(animationSpec = tween()),
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(color = MaterialTheme.colorScheme.onSurface.copy(alpha = .5f)),
+                contentAlignment = Alignment.Center,
+            ) {
+                Column {
+                    when (visuals) {
+                        is LoadingVisuals.LottieAnimation -> {
+                            LottieAnimation(
+                                modifier = Modifier.size(visuals.size),
+                                resource = visuals.animRes,
+                            )
+                        }
+                        is LoadingVisuals.Spinner -> {
+                            CircularProgressIndicator(modifier = Modifier.size(visuals.size))
+                        }
+                    }
+
+                    visuals.message?.let { message ->
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            text = message,
+                            style = MaterialTheme.typography.headlineMedium
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
