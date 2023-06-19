@@ -19,3 +19,4 @@ rootProject.name = "ToolboxCompose"
 include(":app")
 include(":theme")
 include(":ui-base")
+include(":components")

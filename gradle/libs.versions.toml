@@ -12,6 +12,7 @@ material3 = "1.2.0-alpha02"
 com-google-android-material-material = "1.9.0"
 lottie = "6.0.0"
 accompanist = "0.28.0"
+accompanist-anim-nav = "0.31.3-beta"
 material-icons-ext = "1.4.3"
 
 [libraries]
@@ -26,6 +27,7 @@ compose-uiPreview = { group = "androidx.compose.ui", name = "ui-tooling-preview"
 compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
 compose-lottieAnimation = { group = "com.airbnb.android", name = "lottie-compose", version.ref = "lottie" }
 compose-accompanist-systemUiController = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
+compose-accompanist-animNavHost = { group = "com.google.accompanist", name = "accompanist-navigation-animation", version.ref = "accompanist-anim-nav" }
 compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "material-icons-ext" }
 material = { group = "com.google.android.material", name = "material", version.ref = "com-google-android-material-material" }
 
