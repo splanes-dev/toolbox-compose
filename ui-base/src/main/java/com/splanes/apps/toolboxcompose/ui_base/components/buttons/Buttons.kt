@@ -1,17 +1,25 @@
 package com.splanes.apps.toolboxcompose.ui_base.components.buttons
 
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButtonColors
+import androidx.compose.material3.IconButtonDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.isSpecified
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.isSpecified
 
 @Composable
 fun Button(
@@ -168,5 +176,31 @@ fun ElevatedButton(
                 contentDescription = null
             )
         }
+    }
+}
+
+@Composable
+fun IconButton(
+    icon: ImageVector,
+    modifier: Modifier = Modifier,
+    contentDescription: String? = null,
+    iconSize: Dp = Dp.Unspecified,
+    iconTint: Color = Color.Unspecified,
+    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
+    onClick: () -> Unit
+) {
+    androidx.compose.material3.IconButton(
+        modifier = modifier,
+        onClick = onClick,
+        colors = colors,
+    ) {
+        Icon(
+            modifier = Modifier.let {
+                if (iconSize.isSpecified) it.then(Modifier.size(iconSize)) else it
+            },
+            imageVector = icon,
+            contentDescription = contentDescription,
+            tint = if (iconTint.isSpecified) iconTint else LocalContentColor.current
+        )
     }
 }
