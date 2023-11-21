@@ -22,4 +22,14 @@ interface NavGraphNode {
         ExitTransition.None
 }
 
+fun navGraphNodeOf(
+    route: String,
+    subgraph: List<NavGraphNode> = emptyList(),
+    subgraphRoot: String? = null
+) = object : NavGraphNode {
+    override val route: String = route
+    override val subgraph: List<NavGraphNode> = subgraph
+    override val subgraphRoot: String? = subgraphRoot
+}
+
 val NavGraphNode.isFinal: Boolean get() = subgraph.isEmpty()

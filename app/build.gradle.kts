@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.splanes.apps.toolboxcompose"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.splanes.apps.toolboxcompose"
         minSdk = 30
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
